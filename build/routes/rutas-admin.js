@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controlador_admin_1 = __importDefault(require("../controller/controlador-admin"));
+const router = (0, express_1.Router)();
+router.get('/api', controlador_admin_1.default.api);
+router.get('/banco/todos-los-clientes', controlador_admin_1.default.todosLosClientes);
+router.get('/banco/cliente-por-nombre', controlador_admin_1.default.clientePorNombre);
+router.get('/banco/cliente-por-cuenta', controlador_admin_1.default.clientePorCuenta);
+router.get('/banco/cliente-con-saldo-mayor-que', controlador_admin_1.default.clienteConMasSaldoQueElDado);
+router.get('/banco/cliente-con-saldo-menor-que', controlador_admin_1.default.clienteConMenosSaldoQueElDado);
+router.get('/banco/cliente-con-prestamo', controlador_admin_1.default.clienteConPrestamo);
+router.get('/banco/todas-las-extracciones', controlador_admin_1.default.todasLasExtracciones);
+router.get('/banco/todas-las-extracciones-monto-dado', controlador_admin_1.default.extraccionesPorMonto);
+router.get('/banco/todas-las-extracciones-fechas-dadas', controlador_admin_1.default.extraccionesPorFecha);
+router.get('/banco/todos-los-depositos', controlador_admin_1.default.todosLosDepositos);
+router.get('/banco/todos-los-depositos-monto-dado', controlador_admin_1.default.depositosPorMonto);
+router.get('/banco/todos-los-depositos-fechas-dadas', controlador_admin_1.default.depositosPorFecha);
+router.get('/banco/monto-total-de-deuda-emitida', controlador_admin_1.default.totalDePlataPrestada);
+router.get('/banco/total-de-clientes-por-sucursal', controlador_admin_1.default.totalDeClientesPorSucursal);
+router.get('/banco/total-de-depositos-por-sucursal', controlador_admin_1.default.saldoTotalPorSucursal);
+router.get('/banco/total-de-deuda-por-sucursal', controlador_admin_1.default.deudaTotalPorSucursal);
+exports.default = router;
