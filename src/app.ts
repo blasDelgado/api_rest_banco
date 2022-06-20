@@ -4,14 +4,14 @@ import rutaAdmin from './routes/rutas-admin';
 
 const app = express();
 
-//middleweares
+//Middleweares
 app.use(morgan('dev'));
 
 //Configuraciones
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//routas
+//rutas
 app.use(rutaAdmin);
 
 export default app;
