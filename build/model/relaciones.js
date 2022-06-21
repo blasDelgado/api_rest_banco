@@ -16,21 +16,20 @@ const prestamo_1 = __importDefault(require("../model/prestamo"));
 exports.Prestamo = prestamo_1.default;
 const sucursal_1 = __importDefault(require("../model/sucursal"));
 exports.Sucursal = sucursal_1.default;
-// Relacion Cliente con Cuenta
-cliente_1.default.hasOne(cuenta_1.default, { foreignKey: 'numero_de_cuenta' });
-cuenta_1.default.hasOne(cliente_1.default, { foreignKey: 'numero_de_cuenta' });
-// Relacion Cliente con Sucursal
-cliente_1.default.hasOne(sucursal_1.default, { foreignKey: 'id_sucursal' });
-sucursal_1.default.hasOne(cliente_1.default, { foreignKey: 'id_sucursal' });
-//Relacion Cuenta con Prestamo
-cuenta_1.default.hasOne(prestamo_1.default, { foreignKey: 'id_prestamo' });
-prestamo_1.default.hasOne(cuenta_1.default, { foreignKey: 'id_prestamo' });
-//Relacion Deposito con Cuenta
-cuenta_1.default.hasOne(depositos_1.default, { foreignKey: 'numero_de_cuenta' });
-depositos_1.default.hasOne(cuenta_1.default, { foreignKey: 'numero_de_cuenta' });
-//Relacion Extracciones con Cuenta
-cuenta_1.default.hasOne(extracciones_1.default, { foreignKey: 'numero_de_cuenta' });
-extracciones_1.default.hasOne(cuenta_1.default, { foreignKey: 'numero_de_cuenta' });
-//Relacion Prestamo con Sucursal
-prestamo_1.default.hasOne(sucursal_1.default, { foreignKey: 'id_sucursal' });
-sucursal_1.default.hasOne(prestamo_1.default, { foreignKey: 'id_sucursal_emisora' });
+agregarRelacion(cliente_1.default, cuenta_1.default, 'numero_de_cuenta');
+agregarRelacion(cliente_1.default, sucursal_1.default, 'id_sucursal');
+agregarRelacion(cuenta_1.default, prestamo_1.default, 'id_prestamo');
+agregarRelacion(cuenta_1.default, depositos_1.default, 'numero_de_cuenta');
+agregarRelacion(cuenta_1.default, extracciones_1.default, 'numero_de_cuenta');
+agregarRelacion(prestamo_1.default, sucursal_1.default, 'id_sucursal', 'id_sucursal_emisora');
+//Funcion que crea una relacion entre dos modelos de 1 a 1.
+function agregarRelacion(m1, m2, fk, fk2) {
+    if (fk2) {
+        m1.hasOne(m2, { foreignKey: fk });
+        m2.hasOne(m1, { foreignKey: fk2 });
+    }
+    else {
+        m1.hasOne(m2, { foreignKey: fk });
+        m2.hasOne(m1, { foreignKey: fk });
+    }
+}
