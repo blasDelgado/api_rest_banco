@@ -5,28 +5,18 @@ import Depositos from '../model/depositos';
 import Extracciones from '../model/extracciones';
 import Prestamo from '../model/prestamo';
 import Sucursal from '../model/sucursal';
+import CreaRelaciones from '../utils/creador-de-realciones';
 
-agregarRelacion(Cliente, Cuenta, 'numero_de_cuenta');
-agregarRelacion(Cliente, Sucursal, 'id_sucursal');
-agregarRelacion(Cuenta, Prestamo, 'id_prestamo');
-agregarRelacion(Cuenta, Depositos, 'numero_de_cuenta');
-agregarRelacion(Cuenta, Extracciones, 'numero_de_cuenta');
-agregarRelacion(Prestamo, Sucursal, 'id_sucursal', 'id_sucursal_emisora');
-
-//Funcion que crea una relacion entre dos modelos de 1 a 1.
-function agregarRelacion(
-  m1: ModelStatic<Model>,
-  m2: ModelStatic<Model>,
-  fk: string,
-  fk2?: string
-) {
-  if (fk2) {
-    m1.hasOne(m2, { foreignKey: fk });
-    m2.hasOne(m1, { foreignKey: fk2 });
-  } else {
-    m1.hasOne(m2, { foreignKey: fk });
-    m2.hasOne(m1, { foreignKey: fk });
-  }
-}
+CreaRelaciones.agregarRelacionUnoAUno(Cliente, Cuenta, 'numero_de_cuenta');
+CreaRelaciones.agregarRelacionUnoAUno(Cliente, Sucursal, 'id_sucursal');
+CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Prestamo, 'id_prestamo');
+CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Depositos, 'numero_de_cuenta');
+CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Extracciones, 'numero_de_cuenta');
+CreaRelaciones.agregarRelacionUnoAUno(
+  Prestamo,
+  Sucursal,
+  'id_sucursal',
+  'id_sucursal_emisora'
+);
 
 export { Cliente, Cuenta, Depositos, Extracciones, Prestamo, Sucursal };

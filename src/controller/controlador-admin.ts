@@ -7,8 +7,9 @@ import {
   Extracciones,
   Prestamo,
   Sucursal,
+  Cuenta,
 } from '../model/relaciones';
-import { Cuenta } from '../model/relaciones';
+import IteradorDeSucursales from '../utils/iterador-sucursal';
 
 class ControladorAdmin {
   api(req: Request, res: Response) {
@@ -323,17 +324,17 @@ class ControladorAdmin {
   }
   async totalDeClientesPorSucursal(req: Request, res: Response) {
     try {
-      const respuesta1 = await clientesSucursal(
+      const respuesta1 = await IteradorDeSucursales.clientesSucursal(
         '1',
         'total_clientes_sucursal_1'
       );
 
-      const respuesta2 = await clientesSucursal(
+      const respuesta2 = await IteradorDeSucursales.clientesSucursal(
         '2',
         'total_clientes_sucursal_2'
       );
 
-      const respuesta3 = await clientesSucursal(
+      const respuesta3 = await IteradorDeSucursales.clientesSucursal(
         '3',
         'total_clientes_sucursal_3'
       );
@@ -346,15 +347,15 @@ class ControladorAdmin {
   }
   async saldoTotalPorSucursal(req: Request, res: Response) {
     try {
-      const respuesta1 = await saldoTotalSucursal(
+      const respuesta1 = await IteradorDeSucursales.saldoTotalSucursal(
         '1',
         'saldo_total_sucursal_1'
       );
-      const respuesta2 = await saldoTotalSucursal(
+      const respuesta2 = await IteradorDeSucursales.saldoTotalSucursal(
         '2',
         'saldo_total_sucursal_2'
       );
-      const respuesta3 = await saldoTotalSucursal(
+      const respuesta3 = await IteradorDeSucursales.saldoTotalSucursal(
         '3',
         'saldo_total_sucursal_3'
       );
@@ -366,15 +367,15 @@ class ControladorAdmin {
   }
   async deudaTotalPorSucursal(req: Request, res: Response) {
     try {
-      const respuesta1 = await deudaTotalPorSucursal(
+      const respuesta1 = await IteradorDeSucursales.deudaTotalPorSucursal(
         '1',
         'deuda_total_sucursal_1'
       );
-      const respuesta2 = await deudaTotalPorSucursal(
+      const respuesta2 = await IteradorDeSucursales.deudaTotalPorSucursal(
         '2',
         'deuda_total_sucursal_2'
       );
-      const respuesta3 = await deudaTotalPorSucursal(
+      const respuesta3 = await IteradorDeSucursales.deudaTotalPorSucursal(
         '3',
         'deuda_total_sucursal_3'
       );
@@ -387,70 +388,3 @@ class ControladorAdmin {
 }
 
 export default new ControladorAdmin();
-
-//Funciones útiles
-
-//Suma los clientes por cada sucursal y devuelve una promesa con la respuesta.
-async function clientesSucursal(
-  sucursal: string,
-  nombreColumnaRespuesta: string
-): Promise<object> {
-  const respuesta = await Cliente.findAll({
-    attributes: [
-      [
-        sequelize.fn('Count', sequelize.col('id_sucursal')),
-        nombreColumnaRespuesta,
-      ],
-    ],
-    where: {
-      id_sucursal: sucursal,
-    },
-  });
-  return respuesta;
-}
-//Suma todos los saldos de cada cliente por cada sucursal y devuelve una promesa con la respuesta.
-async function saldoTotalSucursal(
-  sucursal: string,
-  nombreColumnaRespuesta: string
-): Promise<object> {
-  const respuesta = await Cliente.findAll({
-    include: [
-      {
-        model: Cuenta,
-        attributes: {
-          exclude: [
-            'numero_de_cuenta',
-            'saldo',
-            'id_prestamo',
-            'prestamos_pendientes',
-          ],
-        },
-      },
-    ],
-    attributes: [
-      [sequelize.fn('SUM', sequelize.col('saldo')), nombreColumnaRespuesta],
-    ],
-    where: {
-      id_sucursal: sucursal,
-    },
-  });
-  return respuesta;
-}
-//Suma la deuda total de los clientes por cada sucursal y devuelve una promesa con la respuesta.
-async function deudaTotalPorSucursal(
-  sucursal: string,
-  nombreColumnaRespuesta: string
-): Promise<object> {
-  const respuesta = await Prestamo.findAll({
-    attributes: [
-      [
-        sequelize.fn('SUM', sequelize.col('cantidad_adeudada')),
-        nombreColumnaRespuesta,
-      ],
-    ],
-    where: {
-      id_sucursal_emisora: sucursal,
-    },
-  });
-  return respuesta;
-}
