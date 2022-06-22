@@ -13,9 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const datebase_1 = __importDefault(require("../datebase"));
 const relaciones_1 = require("../model/relaciones");
-const relaciones_2 = require("../model/relaciones");
+const iterador_sucursal_1 = __importDefault(require("../utils/iterador-sucursal"));
 class ControladorAdmin {
     api(req, res) {
         res.json({
@@ -97,7 +96,7 @@ class ControladorAdmin {
         return __awaiter(this, void 0, void 0, function* () {
             const saldo = req.body.saldo;
             try {
-                const respuesta = yield relaciones_2.Cuenta.findAll({
+                const respuesta = yield relaciones_1.Cuenta.findAll({
                     include: {
                         model: relaciones_1.Cliente,
                         attributes: ['nombre_cliente'],
@@ -128,7 +127,7 @@ class ControladorAdmin {
         return __awaiter(this, void 0, void 0, function* () {
             const saldo = req.body.saldo;
             try {
-                const respuesta = yield relaciones_2.Cuenta.findAll({
+                const respuesta = yield relaciones_1.Cuenta.findAll({
                     include: {
                         model: relaciones_1.Cliente,
                         attributes: ['nombre_cliente'],
@@ -158,7 +157,7 @@ class ControladorAdmin {
     clienteConPrestamo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const respuesta = yield relaciones_2.Cuenta.findAll({
+                const respuesta = yield relaciones_1.Cuenta.findAll({
                     include: [
                         {
                             model: relaciones_1.Prestamo,
@@ -347,7 +346,7 @@ class ControladorAdmin {
     totalDePlataEnElBanco(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const respuesta = yield relaciones_2.Cuenta.sum('saldo');
+                const respuesta = yield relaciones_1.Cuenta.sum('saldo');
                 res.status(200).json({ Monto_total: respuesta });
             }
             catch (e) {
@@ -359,9 +358,9 @@ class ControladorAdmin {
     totalDeClientesPorSucursal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const respuesta1 = yield clientesSucursal('1', 'total_clientes_sucursal_1');
-                const respuesta2 = yield clientesSucursal('2', 'total_clientes_sucursal_2');
-                const respuesta3 = yield clientesSucursal('3', 'total_clientes_sucursal_3');
+                const respuesta1 = yield iterador_sucursal_1.default.clientesSucursal('1', 'total_clientes_sucursal_1');
+                const respuesta2 = yield iterador_sucursal_1.default.clientesSucursal('2', 'total_clientes_sucursal_2');
+                const respuesta3 = yield iterador_sucursal_1.default.clientesSucursal('3', 'total_clientes_sucursal_3');
                 res.status(200).json([respuesta1, respuesta2, respuesta3]);
             }
             catch (e) {
@@ -373,9 +372,9 @@ class ControladorAdmin {
     saldoTotalPorSucursal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const respuesta1 = yield saldoTotalSucursal('1', 'saldo_total_sucursal_1');
-                const respuesta2 = yield saldoTotalSucursal('2', 'saldo_total_sucursal_2');
-                const respuesta3 = yield saldoTotalSucursal('3', 'saldo_total_sucursal_3');
+                const respuesta1 = yield iterador_sucursal_1.default.saldoTotalSucursal('1', 'saldo_total_sucursal_1');
+                const respuesta2 = yield iterador_sucursal_1.default.saldoTotalSucursal('2', 'saldo_total_sucursal_2');
+                const respuesta3 = yield iterador_sucursal_1.default.saldoTotalSucursal('3', 'saldo_total_sucursal_3');
                 res.status(200).json({ respuesta1, respuesta2, respuesta3 });
             }
             catch (e) {
@@ -387,9 +386,9 @@ class ControladorAdmin {
     deudaTotalPorSucursal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const respuesta1 = yield deudaTotalPorSucursal('1', 'deuda_total_sucursal_1');
-                const respuesta2 = yield deudaTotalPorSucursal('2', 'deuda_total_sucursal_2');
-                const respuesta3 = yield deudaTotalPorSucursal('3', 'deuda_total_sucursal_3');
+                const respuesta1 = yield iterador_sucursal_1.default.deudaTotalPorSucursal('1', 'deuda_total_sucursal_1');
+                const respuesta2 = yield iterador_sucursal_1.default.deudaTotalPorSucursal('2', 'deuda_total_sucursal_2');
+                const respuesta3 = yield iterador_sucursal_1.default.deudaTotalPorSucursal('3', 'deuda_total_sucursal_3');
                 res.status(200).json({ respuesta1, respuesta2, respuesta3 });
             }
             catch (e) {
@@ -400,65 +399,3 @@ class ControladorAdmin {
     }
 }
 exports.default = new ControladorAdmin();
-//Funciones útiles
-//Suma los clientes por cada sucursal y devuelve una promesa con la respuesta.
-function clientesSucursal(sucursal, nombreColumnaRespuesta) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const respuesta = yield relaciones_1.Cliente.findAll({
-            attributes: [
-                [
-                    datebase_1.default.fn('Count', datebase_1.default.col('id_sucursal')),
-                    nombreColumnaRespuesta,
-                ],
-            ],
-            where: {
-                id_sucursal: sucursal,
-            },
-        });
-        return respuesta;
-    });
-}
-//Suma todos los saldos de cada cliente por cada sucursal y devuelve una promesa con la respuesta.
-function saldoTotalSucursal(sucursal, nombreColumnaRespuesta) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const respuesta = yield relaciones_1.Cliente.findAll({
-            include: [
-                {
-                    model: relaciones_2.Cuenta,
-                    attributes: {
-                        exclude: [
-                            'numero_de_cuenta',
-                            'saldo',
-                            'id_prestamo',
-                            'prestamos_pendientes',
-                        ],
-                    },
-                },
-            ],
-            attributes: [
-                [datebase_1.default.fn('SUM', datebase_1.default.col('saldo')), nombreColumnaRespuesta],
-            ],
-            where: {
-                id_sucursal: sucursal,
-            },
-        });
-        return respuesta;
-    });
-}
-//Suma la deuda total de los clientes por cada sucursal y devuelve una promesa con la respuesta.
-function deudaTotalPorSucursal(sucursal, nombreColumnaRespuesta) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const respuesta = yield relaciones_1.Prestamo.findAll({
-            attributes: [
-                [
-                    datebase_1.default.fn('SUM', datebase_1.default.col('cantidad_adeudada')),
-                    nombreColumnaRespuesta,
-                ],
-            ],
-            where: {
-                id_sucursal_emisora: sucursal,
-            },
-        });
-        return respuesta;
-    });
-}

@@ -16,20 +16,10 @@ const prestamo_1 = __importDefault(require("../model/prestamo"));
 exports.Prestamo = prestamo_1.default;
 const sucursal_1 = __importDefault(require("../model/sucursal"));
 exports.Sucursal = sucursal_1.default;
-agregarRelacion(cliente_1.default, cuenta_1.default, 'numero_de_cuenta');
-agregarRelacion(cliente_1.default, sucursal_1.default, 'id_sucursal');
-agregarRelacion(cuenta_1.default, prestamo_1.default, 'id_prestamo');
-agregarRelacion(cuenta_1.default, depositos_1.default, 'numero_de_cuenta');
-agregarRelacion(cuenta_1.default, extracciones_1.default, 'numero_de_cuenta');
-agregarRelacion(prestamo_1.default, sucursal_1.default, 'id_sucursal', 'id_sucursal_emisora');
-//Funcion que crea una relacion entre dos modelos de 1 a 1.
-function agregarRelacion(m1, m2, fk, fk2) {
-    if (fk2) {
-        m1.hasOne(m2, { foreignKey: fk });
-        m2.hasOne(m1, { foreignKey: fk2 });
-    }
-    else {
-        m1.hasOne(m2, { foreignKey: fk });
-        m2.hasOne(m1, { foreignKey: fk });
-    }
-}
+const creador_de_realciones_1 = __importDefault(require("../utils/creador-de-realciones"));
+creador_de_realciones_1.default.agregarRelacionUnoAUno(cliente_1.default, cuenta_1.default, 'numero_de_cuenta');
+creador_de_realciones_1.default.agregarRelacionUnoAUno(cliente_1.default, sucursal_1.default, 'id_sucursal');
+creador_de_realciones_1.default.agregarRelacionUnoAUno(cuenta_1.default, prestamo_1.default, 'id_prestamo');
+creador_de_realciones_1.default.agregarRelacionUnoAUno(cuenta_1.default, depositos_1.default, 'numero_de_cuenta');
+creador_de_realciones_1.default.agregarRelacionUnoAUno(cuenta_1.default, extracciones_1.default, 'numero_de_cuenta');
+creador_de_realciones_1.default.agregarRelacionUnoAUno(prestamo_1.default, sucursal_1.default, 'id_sucursal', 'id_sucursal_emisora');
