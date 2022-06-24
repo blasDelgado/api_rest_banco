@@ -59,7 +59,7 @@ class ControladorAdmin {
     }
   }
   async clientePorNombre(req: Request, res: Response) {
-    const nombre: String = req.body.nombre;
+    const nombre: string = req.body.nombre;
 
     try {
       const respuesta = await Cliente.findAll({
@@ -78,7 +78,7 @@ class ControladorAdmin {
     }
   }
   async clientePorCuenta(req: Request, res: Response) {
-    const cuenta: Number = req.body.cuenta;
+    const cuenta: number = req.body.cuenta;
     try {
       const respuesta = await Cliente.findAll({
         where: { numero_de_cuenta: cuenta },
@@ -96,7 +96,7 @@ class ControladorAdmin {
     }
   }
   async clienteConMasSaldoQueElDado(req: Request, res: Response) {
-    const saldo: Number = req.body.saldo;
+    const saldo: number = req.body.saldo;
     try {
       const respuesta = await Cuenta.findAll({
         include: {
@@ -124,7 +124,7 @@ class ControladorAdmin {
     }
   }
   async clienteConMenosSaldoQueElDado(req: Request, res: Response) {
-    const saldo: Number = req.body.saldo;
+    const saldo: number = req.body.saldo;
     try {
       const respuesta = await Cuenta.findAll({
         include: {
