@@ -1,13 +1,13 @@
 import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
-interface ICliente {
-  id_cliente: Number | null | undefined;
-  nombre_cliente: String;
-  apellido_cliente: String;
-  telefono_cliente: Number;
-  id_sucursal: Number;
-  numero_de_cuenta: Number;
+export interface ICliente {
+  id_cliente: number | undefined;
+  nombre_cliente: string;
+  apellido_cliente: string;
+  telefono_cliente: number;
+  id_sucursal: number;
+  numero_de_cuenta: number | undefined;
 }
 
 export default class Cliente extends Model<ICliente> {}
@@ -17,6 +17,8 @@ Cliente.init(
     id_cliente: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      unique: true,
+      autoIncrement: true,
     },
     nombre_cliente: {
       type: DataTypes.STRING,
@@ -37,6 +39,7 @@ Cliente.init(
     numero_de_cuenta: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
     },
   },
   {

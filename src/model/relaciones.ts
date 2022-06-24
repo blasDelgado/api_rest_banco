@@ -1,6 +1,6 @@
 import { Model, ModelStatic } from 'sequelize/types';
 import Cliente from '../model/cliente';
-import Cuenta from '../model/cuenta';
+import Cuenta, { ICuenta } from '../model/cuenta';
 import Depositos from '../model/depositos';
 import Extracciones from '../model/extracciones';
 import Prestamo from '../model/prestamo';

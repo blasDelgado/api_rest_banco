@@ -2,13 +2,13 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 interface IPrestamo {
-  id_prestamo: Number | null | undefined;
-  id_cliente: Number;
-  cantidad_prestada: Number;
-  cantidad_adeudada: Number;
+  id_prestamo: number | null | undefined;
+  id_cliente: number;
+  cantidad_prestada: number;
+  cantidad_adeudada: number;
   fecha_de_otorgamiento: Date;
   fecha_de_vencimiento: Date | null | undefined;
-  id_sucursal_emisora: Number;
+  id_sucursal_emisora: number;
 }
 
 export default class Prestamo extends Model<IPrestamo> {}

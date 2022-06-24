@@ -1,11 +1,11 @@
 import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
-interface ICuenta {
-  numero_de_cuenta: Number | null | undefined;
-  saldo: Number;
-  prestamos_pendientes: Number;
-  id_prestamo: Number | null | undefined;
+export interface ICuenta {
+  numero_de_cuenta: number | undefined;
+  saldo: number;
+  prestamos_pendientes: number;
+  id_prestamo: number | null | undefined;
 }
 
 export default class Cuenta extends Model<ICuenta> {}
@@ -15,6 +15,7 @@ Cuenta.init(
     numero_de_cuenta: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     saldo: {
       type: DataTypes.INTEGER,
