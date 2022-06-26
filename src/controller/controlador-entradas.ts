@@ -4,6 +4,11 @@ import {
   Verificador,
 } from '../utils/para_controlador_entradas/entradas-en-bd';
 
-class EntradasController {}
+class ControladorEntradas {
+  nuevoCliente() {}
+  nuevaSucursal() {}
+  nuevaOperacion() {}
+  nuevoPrestamo() {}
+}
 
-export default new EntradasController();
+export default new ControladorEntradas();

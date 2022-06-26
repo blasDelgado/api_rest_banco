@@ -1,8 +1,8 @@
 import { Model, ModelStatic } from 'sequelize/types';
 
-export default class CreaRelaciones {
+export default class AgregarRelaciones {
   //Crea una relacion entre dos modelos de 1 a 1.
-  static agregarRelacionUnoAUno(
+  static crearRelacionUnoAUno(
     m1: ModelStatic<Model>,
     m2: ModelStatic<Model>,
     fk: string,

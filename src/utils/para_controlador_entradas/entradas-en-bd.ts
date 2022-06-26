@@ -1,9 +1,10 @@
+import { ModelStatic, Model } from 'sequelize/types';
 import Cliente, { ICliente } from '../../model/cliente';
 import Cuenta, { ICuenta } from '../../model/cuenta';
-import Sucursal from '../../model/sucursal';
-import { ModelStatic, Model } from 'sequelize/types';
 import Depositos, { IDepositos } from '../../model/depositos';
 import Extracciones, { IExtracciones } from '../../model/extracciones';
+import Sucursal, { ISucursal } from '../../model/sucursal';
+import Prestamo, { IPrestamo } from '../../model/prestamo';
 
 export class AgregarCliente {
   public static async crearCliente(cuenta: ICuenta, cliente: ICliente) {
@@ -65,6 +66,65 @@ export class AgregarOperacion {
       this.crearExtraccion(operacion);
     } else {
       this.crearDeposito(operacion);
+    }
+  }
+}
+
+export class AgregarSucursal {
+  static async crearSucursal(sucursal: ISucursal) {
+    try {
+      await Sucursal.create(sucursal);
+      console.log('Sucursal agregada correctamente');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+export class AgregarPrestamo {
+  private static async cambioDeEstadoDeDeuda(cuenta: number) {
+    try {
+      const cliente = await Cuenta.update(
+        {
+          prestamos_pendientes: 1,
+        },
+        {
+          where: {
+            numero_de_cuenta: cuenta,
+          },
+        }
+      );
+      console.log('Cambio el estado de deuda del cliente');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  static async crearPrestamo(prestamo: IPrestamo) {
+    try {
+      const cuentaV = await Verificador.verificaSiExiste(
+        Cliente,
+        'id_cliente',
+        prestamo.id_cliente
+      );
+      const sucursalV = await Verificador.verificaSiExiste(
+        Sucursal,
+        'id_sucursal',
+        prestamo.id_sucursal_emisora
+      );
+
+      if (cuentaV == true && sucursalV == true) {
+        Prestamo.create(prestamo);
+        this.cambioDeEstadoDeDeuda(prestamo.id_cliente);
+        console.log('Prestamo ingresado correctamente');
+      } else if (sucursalV == true) {
+        console.error('Numero de cliente incorrecto');
+      } else if (cuentaV == true) {
+        console.error('Numero de sucursal emisora incorrecta');
+      } else {
+        console.log('Numero de cliente y sucursal incorrectos');
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 }

@@ -1,5 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class EntradasController {
+class ControladorEntradas {
+    nuevoCliente() { }
+    nuevaSucursal() { }
+    nuevaOperacion() { }
+    nuevoPrestamo() { }
 }
-exports.default = new EntradasController();
+exports.default = new ControladorEntradas();

@@ -5,14 +5,18 @@ import Depositos from '../model/depositos';
 import Extracciones from '../model/extracciones';
 import Prestamo from '../model/prestamo';
 import Sucursal from '../model/sucursal';
-import CreaRelaciones from '../utils/para_model/creador-de-realciones';
+import AgregarRelaciones from '../utils/para_model/creador-de-realciones';
 
-CreaRelaciones.agregarRelacionUnoAUno(Cliente, Cuenta, 'numero_de_cuenta');
-CreaRelaciones.agregarRelacionUnoAUno(Cliente, Sucursal, 'id_sucursal');
-CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Prestamo, 'id_prestamo');
-CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Depositos, 'numero_de_cuenta');
-CreaRelaciones.agregarRelacionUnoAUno(Cuenta, Extracciones, 'numero_de_cuenta');
-CreaRelaciones.agregarRelacionUnoAUno(
+AgregarRelaciones.crearRelacionUnoAUno(Cliente, Cuenta, 'numero_de_cuenta');
+AgregarRelaciones.crearRelacionUnoAUno(Cliente, Sucursal, 'id_sucursal');
+AgregarRelaciones.crearRelacionUnoAUno(Cuenta, Prestamo, 'id_prestamo');
+AgregarRelaciones.crearRelacionUnoAUno(Cuenta, Depositos, 'numero_de_cuenta');
+AgregarRelaciones.crearRelacionUnoAUno(
+  Cuenta,
+  Extracciones,
+  'numero_de_cuenta'
+);
+AgregarRelaciones.crearRelacionUnoAUno(
   Prestamo,
   Sucursal,
   'id_sucursal',

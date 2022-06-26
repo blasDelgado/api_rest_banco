@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
-interface IPrestamo {
+export interface IPrestamo {
   id_prestamo: number | null | undefined;
   id_cliente: number;
   cantidad_prestada: number;
