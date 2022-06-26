@@ -72,13 +72,13 @@ export class AgregarOperacion {
 export class Verificador {
   static async verificaSiExiste(
     modelo: ModelStatic<Model>,
-    enQueColumna: string,
+    quePropiedad: string,
     queAtributo: string | number
   ): Promise<boolean> {
     try {
       let consulta: {} = {};
       //@ts-ignore
-      consulta[enQueColumna] = queAtributo;
+      consulta[quePropiedad] = queAtributo;
 
       const siExiste = await modelo.findOne({
         where: consulta,
