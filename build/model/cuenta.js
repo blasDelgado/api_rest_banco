@@ -12,6 +12,7 @@ Cuenta.init({
     numero_de_cuenta: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     saldo: {
         type: sequelize_1.DataTypes.INTEGER,

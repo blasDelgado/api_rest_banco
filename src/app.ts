@@ -1,6 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
-import rutaAdmin from './routes/rutas-admin';
+import rutaAdmin from './routes/rutas-llamadas';
 
 const app = express();
 

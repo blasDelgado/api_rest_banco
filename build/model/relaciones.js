@@ -16,7 +16,7 @@ const prestamo_1 = __importDefault(require("../model/prestamo"));
 exports.Prestamo = prestamo_1.default;
 const sucursal_1 = __importDefault(require("../model/sucursal"));
 exports.Sucursal = sucursal_1.default;
-const creador_de_realciones_1 = __importDefault(require("../utils/creador-de-realciones"));
+const creador_de_realciones_1 = __importDefault(require("../utils/para_model/creador-de-realciones"));
 creador_de_realciones_1.default.agregarRelacionUnoAUno(cliente_1.default, cuenta_1.default, 'numero_de_cuenta');
 creador_de_realciones_1.default.agregarRelacionUnoAUno(cliente_1.default, sucursal_1.default, 'id_sucursal');
 creador_de_realciones_1.default.agregarRelacionUnoAUno(cuenta_1.default, prestamo_1.default, 'id_prestamo');

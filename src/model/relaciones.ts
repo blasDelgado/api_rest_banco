@@ -5,7 +5,7 @@ import Depositos from '../model/depositos';
 import Extracciones from '../model/extracciones';
 import Prestamo from '../model/prestamo';
 import Sucursal from '../model/sucursal';
-import CreaRelaciones from '../utils/creador-de-realciones';
+import CreaRelaciones from '../utils/para_model/creador-de-realciones';
 
 CreaRelaciones.agregarRelacionUnoAUno(Cliente, Cuenta, 'numero_de_cuenta');
 CreaRelaciones.agregarRelacionUnoAUno(Cliente, Sucursal, 'id_sucursal');

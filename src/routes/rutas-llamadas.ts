@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import ControladorAdmin from '../controller/controlador-admin';
+import ControladorAdmin from '../controller/controlador-llamadas';
 
-const router = Router();
+const router: Router = Router();
 
+router.get('/', ControladorAdmin.api);
 router.get('/api', ControladorAdmin.api);
 router.get('/banco/todos-los-clientes', ControladorAdmin.todosLosClientes);
 router.get('/banco/cliente-por-nombre', ControladorAdmin.clientePorNombre);

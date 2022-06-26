@@ -1,5 +1,5 @@
-import sequelize from '../datebase';
-import { Cliente, Prestamo, Cuenta } from '../model/relaciones';
+import sequelize from '../../datebase';
+import { Cliente, Prestamo, Cuenta } from '../../model/relaciones';
 
 export default class IteradorDeSucursales {
   //Suma los clientes por cada sucursal y devuelve una promesa con la respuesta.

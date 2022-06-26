@@ -12,6 +12,8 @@ Cliente.init({
     id_cliente: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
+        unique: true,
+        autoIncrement: true,
     },
     nombre_cliente: {
         type: sequelize_1.DataTypes.STRING,
@@ -32,6 +34,7 @@ Cliente.init({
     numero_de_cuenta: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
     },
 }, {
     sequelize: datebase_1.default,

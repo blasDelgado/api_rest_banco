@@ -9,9 +9,9 @@ import {
   Sucursal,
   Cuenta,
 } from '../model/relaciones';
-import IteradorDeSucursales from '../utils/iterador-sucursal';
+import IteradorDeSucursales from '../utils/para_controlador_llamadas/iterador-sucursal';
 
-class ControladorAdmin {
+class ControladorLlamadas {
   api(req: Request, res: Response) {
     res.json({
       'Todos los Clientes': 'http://localhost:3000/banco/todos-los-clientes',
@@ -387,4 +387,4 @@ class ControladorAdmin {
   }
 }
 
-export default new ControladorAdmin();
+export default new ControladorLlamadas();

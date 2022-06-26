@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "",
     "build": "tsc",
     "start": "node build/index.js ",
     "dev": "nodemon"
