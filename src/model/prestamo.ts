@@ -2,12 +2,12 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface IPrestamo {
-  id_prestamo: number | null | undefined;
+  id_prestamo: number | null;
   id_cliente: number;
   cantidad_prestada: number;
   cantidad_adeudada: number;
   fecha_de_otorgamiento: Date;
-  fecha_de_vencimiento: Date | null | undefined;
+  fecha_de_vencimiento: Date | null;
   id_sucursal_emisora: number;
 }
 

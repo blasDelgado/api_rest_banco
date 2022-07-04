@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface IDepositos {
-  id_deposito: number | undefined;
+  id_deposito: number | null;
   monto_depositado: number;
   fecha_de_deposito: Date;
   numero_de_cuenta: number;

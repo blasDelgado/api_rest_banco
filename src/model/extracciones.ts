@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface IExtracciones {
-  id_extraccion: number | undefined;
+  id_extraccion: number | null;
   monto_extraido: number;
   fecha_de_extraccion: Date;
   numero_de_cuenta: number;

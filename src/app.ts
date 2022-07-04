@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
-import rutaAdmin from './routes/rutas-llamadas';
+import rutaLlamadas from './routes/rutas-llamadas';
+import rutaEntradas from './routes/rutas-entradas';
 
 const app = express();
 
@@ -12,6 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //rutas
-app.use(rutaAdmin);
+app.use(rutaLlamadas, rutaEntradas);
 
 export default app;

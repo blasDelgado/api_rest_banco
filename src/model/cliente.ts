@@ -2,12 +2,12 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface ICliente {
-  id_cliente: number | undefined;
+  id_cliente: number | null;
   nombre_cliente: string;
   apellido_cliente: string;
   telefono_cliente: number;
   id_sucursal: number;
-  numero_de_cuenta: number | undefined;
+  numero_de_cuenta: number | null;
 }
 
 export default class Cliente extends Model<ICliente> {}

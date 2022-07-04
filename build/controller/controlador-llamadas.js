@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const relaciones_1 = require("../model/relaciones");
-const iterador_sucursal_1 = __importDefault(require("../utils/para_controlador_llamadas/iterador-sucursal"));
+const iterador_sucursal_1 = __importDefault(require("../clases/para_controlador_llamadas/iterador-sucursal"));
 class ControladorLlamadas {
     api(req, res) {
         res.json({

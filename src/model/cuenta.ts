@@ -2,10 +2,10 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface ICuenta {
-  numero_de_cuenta: number | undefined;
+  numero_de_cuenta: number | null;
   saldo: number;
   prestamos_pendientes: number;
-  id_prestamo: number | null | undefined;
+  id_prestamo: number | null | null;
 }
 
 export default class Cuenta extends Model<ICuenta> {}

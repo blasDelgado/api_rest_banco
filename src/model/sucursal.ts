@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import bd from '../datebase';
 
 export interface ISucursal {
-  id_sucursal: number | undefined;
+  id_sucursal: number | null;
   nombre_sucursal: string;
   ciudad_sucursal: string;
   direccion_sucursal: string;
