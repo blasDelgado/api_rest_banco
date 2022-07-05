@@ -19,43 +19,71 @@ const verificador_1 = __importDefault(require("./verificador"));
 class AgregarOperacion {
     static crearDeposito(deposito) {
         return __awaiter(this, void 0, void 0, function* () {
+            let mensaje;
             try {
                 const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, 'numero_de_cuenta', deposito.numero_de_cuenta);
                 if (cuentaV == true) {
                     yield depositos_1.default.create(deposito);
+                    mensaje = 'depósito creado con éxito';
+                    return mensaje;
                 }
                 else {
-                    console.error('El numero de cuenta ingresado no existe');
+                    mensaje = 'El numero de cuenta ingresado no existe';
+                    console.error(mensaje);
+                    return mensaje;
                 }
             }
             catch (e) {
                 console.error(e);
+                mensaje =
+                    'ocurrio un error al intentar crear el depósito, verifique los datos ingresados';
+                return mensaje;
             }
         });
     }
     static crearExtraccion(extraccion) {
         return __awaiter(this, void 0, void 0, function* () {
+            let mensaje;
             try {
                 const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, 'numero_de_cuenta', extraccion.numero_de_cuenta);
                 if (cuentaV == true) {
                     yield extracciones_1.default.create(extraccion);
+                    mensaje = 'extraccion creada con éxito';
+                    return mensaje;
                 }
                 else {
-                    console.error('El numero de cuenta ingresado no existe');
+                    mensaje = 'El numero de cuenta ingresado no existe';
+                    console.error(mensaje);
+                    return mensaje;
                 }
             }
             catch (e) {
                 console.error(e);
+                mensaje =
+                    'ocurrio un error al intentar crear la extraccion ,verifique los datos ingresados';
+                return mensaje;
             }
         });
     }
     static crearOperacion(operacion) {
-        if ('id_extraccion' in operacion) {
-            this.crearExtraccion(operacion);
-        }
-        else {
-            this.crearDeposito(operacion);
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            let mensaje;
+            try {
+                if ('id_extraccion' in operacion) {
+                    mensaje = yield this.crearExtraccion(operacion);
+                    return mensaje;
+                }
+                else {
+                    mensaje = yield this.crearDeposito(operacion);
+                    return mensaje;
+                }
+            }
+            catch (e) {
+                console.error(e);
+                mensaje = 'ocurrió un error ,verifique los datos ingresado';
+                return mensaje;
+            }
+        });
     }
 }
 exports.default = AgregarOperacion;

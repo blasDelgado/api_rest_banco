@@ -37,26 +37,37 @@ class AgregarPrestamo {
     }
     static crearPrestamo(prestamo) {
         return __awaiter(this, void 0, void 0, function* () {
+            let mensaje;
             try {
                 const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, 'id_cliente', prestamo.id_cliente);
                 const sucursalV = yield verificador_1.default.verificaSiExiste(sucursal_1.default, 'id_sucursal', prestamo.id_sucursal_emisora);
                 if (cuentaV == true && sucursalV == true) {
-                    prestamo_1.default.create(prestamo);
+                    yield prestamo_1.default.create(prestamo);
                     this.cambioDeEstadoDeDeuda(prestamo.id_cliente);
-                    console.log('Prestamo ingresado correctamente');
+                    mensaje = 'Prestamo ingresado correctamente';
+                    console.log(mensaje);
+                    return mensaje;
                 }
-                else if (sucursalV == true) {
-                    console.error('Numero de cliente incorrecto');
+                else if (sucursalV === true) {
+                    mensaje = 'Numero de cliente incorrecto';
+                    console.error(mensaje);
+                    return mensaje;
                 }
                 else if (cuentaV == true) {
-                    console.error('Numero de sucursal emisora incorrecta');
+                    mensaje = 'Numero de sucursal emisora incorrecta';
+                    console.error(mensaje);
+                    return mensaje;
                 }
                 else {
-                    console.log('Numero de cliente y sucursal incorrectos');
+                    mensaje = 'Numero de cliente y sucursal incorrectos';
+                    console.error(mensaje);
+                    return mensaje;
                 }
             }
             catch (e) {
                 console.error(e);
+                mensaje = 'ocurrió un error , verifique los datos ingresado';
+                return mensaje;
             }
         });
     }

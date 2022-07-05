@@ -13,24 +13,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const agregar_cliente_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-cliente"));
+const agregar_operacion_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-operacion"));
+const agregar_prestamo_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-prestamo"));
+const agregar_sucursal_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-sucursal"));
 class ControladorEntradas {
     nuevoCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cliente = req.body.cliente;
             const cuenta = req.body.cuenta;
-            let mensaje;
             try {
-                mensaje = yield agregar_cliente_1.default.crearCliente(cuenta, cliente);
+                let mensaje = yield agregar_cliente_1.default.crearCliente(cuenta, cliente);
                 res.status(200).json({ mensaje: mensaje });
             }
             catch (e) {
-                res.status(500).json({ mensaje: 'error en el servidor' });
+                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
                 console.error(e);
             }
         });
     }
-    nuevaSucursal() { }
-    nuevaOperacion() { }
-    nuevoPrestamo() { }
+    nuevaSucursal(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sucursal = req.body.sucursal;
+            try {
+                let mensaje = yield agregar_sucursal_1.default.crearSucursal(sucursal);
+                res.status(200).json({ mensaje: mensaje });
+            }
+            catch (e) {
+                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                console.error(e);
+            }
+        });
+    }
+    nuevaOperacion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const operacion = req.body.operacion;
+            try {
+                let mensaje = yield agregar_operacion_1.default.crearOperacion(operacion);
+                res.status(200).json({ mensaje: mensaje });
+            }
+            catch (e) {
+                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                console.error(e);
+            }
+        });
+    }
+    nuevoPrestamo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prestamo = req.body.prestamo;
+            try {
+                let mensaje = yield agregar_prestamo_1.default.crearPrestamo(prestamo);
+                res.status(200).json({ mensaje: mensaje });
+            }
+            catch (e) {
+                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                console.error(e);
+            }
+        });
+    }
 }
 exports.default = new ControladorEntradas();

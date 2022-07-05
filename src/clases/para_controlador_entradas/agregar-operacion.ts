@@ -4,7 +4,8 @@ import Extracciones, { IExtracciones } from '../../model/extracciones';
 import Verificador from './verificador';
 
 export default class AgregarOperacion {
-  private static async crearDeposito(deposito: IDepositos) {
+  private static async crearDeposito(deposito: IDepositos): Promise<string> {
+    let mensaje: string;
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
@@ -13,14 +14,24 @@ export default class AgregarOperacion {
       );
       if (cuentaV == true) {
         await Depositos.create(deposito);
+        mensaje = 'depósito creado con éxito';
+        return mensaje;
       } else {
-        console.error('El numero de cuenta ingresado no existe');
+        mensaje = 'El numero de cuenta ingresado no existe';
+        console.error(mensaje);
+        return mensaje;
       }
     } catch (e) {
       console.error(e);
+      mensaje =
+        'ocurrio un error al intentar crear el depósito, verifique los datos ingresados';
+      return mensaje;
     }
   }
-  private static async crearExtraccion(extraccion: IExtracciones) {
+  private static async crearExtraccion(
+    extraccion: IExtracciones
+  ): Promise<string> {
+    let mensaje: string;
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
@@ -29,18 +40,37 @@ export default class AgregarOperacion {
       );
       if (cuentaV == true) {
         await Extracciones.create(extraccion);
+        mensaje = 'extraccion creada con éxito';
+        return mensaje;
       } else {
-        console.error('El numero de cuenta ingresado no existe');
+        mensaje = 'El numero de cuenta ingresado no existe';
+        console.error(mensaje);
+        return mensaje;
       }
     } catch (e) {
       console.error(e);
+      mensaje =
+        'ocurrio un error al intentar crear la extraccion ,verifique los datos ingresados';
+      return mensaje;
     }
   }
-  static crearOperacion(operacion: IExtracciones | IDepositos) {
-    if ('id_extraccion' in operacion) {
-      this.crearExtraccion(operacion);
-    } else {
-      this.crearDeposito(operacion);
+  static async crearOperacion(
+    operacion: IExtracciones | IDepositos
+  ): Promise<string> {
+    let mensaje: string;
+
+    try {
+      if ('id_extraccion' in operacion) {
+        mensaje = await this.crearExtraccion(operacion);
+        return mensaje;
+      } else {
+        mensaje = await this.crearDeposito(operacion);
+        return mensaje;
+      }
+    } catch (e) {
+      console.error(e);
+      mensaje = 'ocurrió un error ,verifique los datos ingresado';
+      return mensaje;
     }
   }
 }

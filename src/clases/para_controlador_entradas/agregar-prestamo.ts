@@ -22,7 +22,8 @@ export default class AgregarPrestamo {
       console.error(e);
     }
   }
-  static async crearPrestamo(prestamo: IPrestamo) {
+  static async crearPrestamo(prestamo: IPrestamo): Promise<string> {
+    let mensaje: string;
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
@@ -36,18 +37,28 @@ export default class AgregarPrestamo {
       );
 
       if (cuentaV == true && sucursalV == true) {
-        Prestamo.create(prestamo);
+        await Prestamo.create(prestamo);
         this.cambioDeEstadoDeDeuda(prestamo.id_cliente);
-        console.log('Prestamo ingresado correctamente');
-      } else if (sucursalV == true) {
-        console.error('Numero de cliente incorrecto');
+        mensaje = 'Prestamo ingresado correctamente';
+        console.log(mensaje);
+        return mensaje;
+      } else if (sucursalV === true) {
+        mensaje = 'Numero de cliente incorrecto';
+        console.error(mensaje);
+        return mensaje;
       } else if (cuentaV == true) {
-        console.error('Numero de sucursal emisora incorrecta');
+        mensaje = 'Numero de sucursal emisora incorrecta';
+        console.error(mensaje);
+        return mensaje;
       } else {
-        console.log('Numero de cliente y sucursal incorrectos');
+        mensaje = 'Numero de cliente y sucursal incorrectos';
+        console.error(mensaje);
+        return mensaje;
       }
     } catch (e) {
       console.error(e);
+      mensaje = 'ocurrió un error , verifique los datos ingresado';
+      return mensaje;
     }
   }
 }

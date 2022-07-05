@@ -16,12 +16,18 @@ const sucursal_1 = __importDefault(require("../../model/sucursal"));
 class AgregarSucursal {
     static crearSucursal(sucursal) {
         return __awaiter(this, void 0, void 0, function* () {
+            let mensaje;
             try {
                 yield sucursal_1.default.create(sucursal);
-                console.log('Sucursal agregada correctamente');
+                mensaje = 'Sucursal agregada correctamente';
+                console.log(mensaje);
+                return mensaje;
             }
             catch (e) {
                 console.error(e);
+                mensaje =
+                    'Error al intentar crear una nueva sucursal , verifique los datos ingresados';
+                return mensaje;
             }
         });
     }
