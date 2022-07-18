@@ -42,6 +42,7 @@ export default class IteradorDeSucursales {
       attributes: [
         [sequelize.fn('SUM', sequelize.col('saldo')), nombreColumnaRespuesta],
       ],
+      group: [sequelize.col('id_sucursal')],//borrar
       where: {
         id_sucursal: sucursal,
       },
@@ -63,7 +64,11 @@ export default class IteradorDeSucursales {
       where: {
         id_sucursal_emisora: sucursal,
       },
-    });
+  
+      
+    }
+  
+    );
     return respuesta;
   }
 }

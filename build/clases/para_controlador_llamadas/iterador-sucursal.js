@@ -52,6 +52,7 @@ class IteradorDeSucursales {
                 attributes: [
                     [datebase_1.default.fn('SUM', datebase_1.default.col('saldo')), nombreColumnaRespuesta],
                 ],
+                group: [datebase_1.default.col('id_sucursal')],
                 where: {
                     id_sucursal: sucursal,
                 },
