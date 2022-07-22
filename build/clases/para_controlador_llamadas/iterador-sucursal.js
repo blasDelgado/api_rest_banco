@@ -21,7 +21,7 @@ class IteradorDeSucursales {
             const respuesta = yield relaciones_1.Cliente.findAll({
                 attributes: [
                     [
-                        datebase_1.default.fn('Count', datebase_1.default.col('id_sucursal')),
+                        datebase_1.default.fn("Count", datebase_1.default.col("id_sucursal")),
                         nombreColumnaRespuesta,
                     ],
                 ],
@@ -41,18 +41,18 @@ class IteradorDeSucursales {
                         model: relaciones_1.Cuenta,
                         attributes: {
                             exclude: [
-                                'numero_de_cuenta',
-                                'saldo',
-                                'id_prestamo',
-                                'prestamos_pendientes',
+                                "numero_de_cuenta",
+                                "saldo",
+                                "id_prestamo",
+                                "prestamos_pendientes",
                             ],
                         },
                     },
                 ],
                 attributes: [
-                    [datebase_1.default.fn('SUM', datebase_1.default.col('saldo')), nombreColumnaRespuesta],
+                    [datebase_1.default.fn("SUM", datebase_1.default.col("saldo")), nombreColumnaRespuesta],
                 ],
-                group: [datebase_1.default.col('id_sucursal')],
+                group: [datebase_1.default.col("id_sucursal")],
                 where: {
                     id_sucursal: sucursal,
                 },
@@ -66,7 +66,7 @@ class IteradorDeSucursales {
             const respuesta = yield relaciones_1.Prestamo.findAll({
                 attributes: [
                     [
-                        datebase_1.default.fn('SUM', datebase_1.default.col('cantidad_adeudada')),
+                        datebase_1.default.fn("SUM", datebase_1.default.col("cantidad_adeudada")),
                         nombreColumnaRespuesta,
                     ],
                 ],

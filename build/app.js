@@ -9,7 +9,7 @@ const rutas_llamadas_1 = __importDefault(require("./routes/rutas-llamadas"));
 const rutas_entradas_1 = __importDefault(require("./routes/rutas-entradas"));
 const app = (0, express_1.default)();
 //Middleweares
-app.use((0, morgan_1.default)('dev'));
+app.use((0, morgan_1.default)("dev"));
 //Configuraciones
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));

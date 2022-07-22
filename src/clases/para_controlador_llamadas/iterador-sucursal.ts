@@ -1,5 +1,5 @@
-import sequelize from '../../datebase';
-import { Cliente, Prestamo, Cuenta } from '../../model/relaciones';
+import sequelize from "../../datebase";
+import { Cliente, Prestamo, Cuenta } from "../../model/relaciones";
 
 export default class IteradorDeSucursales {
   //Suma los clientes por cada sucursal y devuelve una promesa con la respuesta.
@@ -10,7 +10,7 @@ export default class IteradorDeSucursales {
     const respuesta = await Cliente.findAll({
       attributes: [
         [
-          sequelize.fn('Count', sequelize.col('id_sucursal')),
+          sequelize.fn("Count", sequelize.col("id_sucursal")),
           nombreColumnaRespuesta,
         ],
       ],
@@ -31,18 +31,18 @@ export default class IteradorDeSucursales {
           model: Cuenta,
           attributes: {
             exclude: [
-              'numero_de_cuenta',
-              'saldo',
-              'id_prestamo',
-              'prestamos_pendientes',
+              "numero_de_cuenta",
+              "saldo",
+              "id_prestamo",
+              "prestamos_pendientes",
             ],
           },
         },
       ],
       attributes: [
-        [sequelize.fn('SUM', sequelize.col('saldo')), nombreColumnaRespuesta],
+        [sequelize.fn("SUM", sequelize.col("saldo")), nombreColumnaRespuesta],
       ],
-      group: [sequelize.col('id_sucursal')],//borrar
+      group: [sequelize.col("id_sucursal")], //borrar
       where: {
         id_sucursal: sucursal,
       },
@@ -57,18 +57,14 @@ export default class IteradorDeSucursales {
     const respuesta = await Prestamo.findAll({
       attributes: [
         [
-          sequelize.fn('SUM', sequelize.col('cantidad_adeudada')),
+          sequelize.fn("SUM", sequelize.col("cantidad_adeudada")),
           nombreColumnaRespuesta,
         ],
       ],
       where: {
         id_sucursal_emisora: sucursal,
       },
-  
-      
-    }
-  
-    );
+    });
     return respuesta;
   }
 }

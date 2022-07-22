@@ -21,14 +21,14 @@ class AgregarOperacion {
         return __awaiter(this, void 0, void 0, function* () {
             let mensaje;
             try {
-                const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, 'numero_de_cuenta', deposito.numero_de_cuenta);
+                const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, "numero_de_cuenta", deposito.numero_de_cuenta);
                 if (cuentaV == true) {
                     yield depositos_1.default.create(deposito);
-                    mensaje = 'depósito creado con éxito';
+                    mensaje = "depósito creado con éxito";
                     return mensaje;
                 }
                 else {
-                    mensaje = 'El numero de cuenta ingresado no existe';
+                    mensaje = "El número de cuenta ingresado no existe";
                     console.error(mensaje);
                     return mensaje;
                 }
@@ -36,7 +36,7 @@ class AgregarOperacion {
             catch (e) {
                 console.error(e);
                 mensaje =
-                    'ocurrio un error al intentar crear el depósito, verifique los datos ingresados';
+                    "ocurrió un error al intentar crear el depósito, verifique los datos ingresados";
                 return mensaje;
             }
         });
@@ -45,14 +45,14 @@ class AgregarOperacion {
         return __awaiter(this, void 0, void 0, function* () {
             let mensaje;
             try {
-                const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, 'numero_de_cuenta', extraccion.numero_de_cuenta);
+                const cuentaV = yield verificador_1.default.verificaSiExiste(cliente_1.default, "numero_de_cuenta", extraccion.numero_de_cuenta);
                 if (cuentaV == true) {
                     yield extracciones_1.default.create(extraccion);
-                    mensaje = 'extraccion creada con éxito';
+                    mensaje = "extraccion creada con éxito";
                     return mensaje;
                 }
                 else {
-                    mensaje = 'El numero de cuenta ingresado no existe';
+                    mensaje = "El número de cuenta ingresado no existe";
                     console.error(mensaje);
                     return mensaje;
                 }
@@ -60,7 +60,7 @@ class AgregarOperacion {
             catch (e) {
                 console.error(e);
                 mensaje =
-                    'ocurrio un error al intentar crear la extraccion ,verifique los datos ingresados';
+                    "ocurrió un error al intentar crear la extracción ,verifique los datos ingresados";
                 return mensaje;
             }
         });
@@ -69,7 +69,7 @@ class AgregarOperacion {
         return __awaiter(this, void 0, void 0, function* () {
             let mensaje;
             try {
-                if ('id_extraccion' in operacion) {
+                if ("id_extraccion" in operacion) {
                     mensaje = yield this.crearExtraccion(operacion);
                     return mensaje;
                 }
@@ -80,7 +80,7 @@ class AgregarOperacion {
             }
             catch (e) {
                 console.error(e);
-                mensaje = 'ocurrió un error ,verifique los datos ingresado';
+                mensaje = "ocurrió un error ,verifique los datos ingresados";
                 return mensaje;
             }
         });

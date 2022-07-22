@@ -1,7 +1,7 @@
-import Cliente from '../../model/cliente';
-import Depositos, { IDepositos } from '../../model/depositos';
-import Extracciones, { IExtracciones } from '../../model/extracciones';
-import Verificador from './verificador';
+import Cliente from "../../model/cliente";
+import Depositos, { IDepositos } from "../../model/depositos";
+import Extracciones, { IExtracciones } from "../../model/extracciones";
+import Verificador from "./verificador";
 
 export default class AgregarOperacion {
   private static async crearDeposito(deposito: IDepositos): Promise<string> {
@@ -9,22 +9,22 @@ export default class AgregarOperacion {
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
-        'numero_de_cuenta',
+        "numero_de_cuenta",
         deposito.numero_de_cuenta
       );
       if (cuentaV == true) {
         await Depositos.create(deposito);
-        mensaje = 'depósito creado con éxito';
+        mensaje = "depósito creado con éxito";
         return mensaje;
       } else {
-        mensaje = 'El numero de cuenta ingresado no existe';
+        mensaje = "El número de cuenta ingresado no existe";
         console.error(mensaje);
         return mensaje;
       }
     } catch (e) {
       console.error(e);
       mensaje =
-        'ocurrio un error al intentar crear el depósito, verifique los datos ingresados';
+        "ocurrió un error al intentar crear el depósito, verifique los datos ingresados";
       return mensaje;
     }
   }
@@ -35,22 +35,22 @@ export default class AgregarOperacion {
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
-        'numero_de_cuenta',
+        "numero_de_cuenta",
         extraccion.numero_de_cuenta
       );
       if (cuentaV == true) {
         await Extracciones.create(extraccion);
-        mensaje = 'extraccion creada con éxito';
+        mensaje = "extraccion creada con éxito";
         return mensaje;
       } else {
-        mensaje = 'El numero de cuenta ingresado no existe';
+        mensaje = "El número de cuenta ingresado no existe";
         console.error(mensaje);
         return mensaje;
       }
     } catch (e) {
       console.error(e);
       mensaje =
-        'ocurrio un error al intentar crear la extraccion ,verifique los datos ingresados';
+        "ocurrió un error al intentar crear la extracción ,verifique los datos ingresados";
       return mensaje;
     }
   }
@@ -60,7 +60,7 @@ export default class AgregarOperacion {
     let mensaje: string;
 
     try {
-      if ('id_extraccion' in operacion) {
+      if ("id_extraccion" in operacion) {
         mensaje = await this.crearExtraccion(operacion);
         return mensaje;
       } else {
@@ -69,7 +69,7 @@ export default class AgregarOperacion {
       }
     } catch (e) {
       console.error(e);
-      mensaje = 'ocurrió un error ,verifique los datos ingresado';
+      mensaje = "ocurrió un error ,verifique los datos ingresados";
       return mensaje;
     }
   }

@@ -1,8 +1,8 @@
-import Cuenta from '../../model/cuenta';
-import Prestamo, { IPrestamo } from '../../model/prestamo';
-import Cliente from '../../model/cliente';
-import Sucursal from '../../model/sucursal';
-import Verificador from './verificador';
+import Cuenta from "../../model/cuenta";
+import Prestamo, { IPrestamo } from "../../model/prestamo";
+import Cliente from "../../model/cliente";
+import Sucursal from "../../model/sucursal";
+import Verificador from "./verificador";
 
 export default class AgregarPrestamo {
   private static async cambioDeEstadoDeDeuda(cuenta: number) {
@@ -17,7 +17,7 @@ export default class AgregarPrestamo {
           },
         }
       );
-      console.log('Cambio el estado de deuda del cliente');
+      console.log("Cambió el estado de deuda del cliente");
     } catch (e) {
       console.error(e);
     }
@@ -27,37 +27,37 @@ export default class AgregarPrestamo {
     try {
       const cuentaV = await Verificador.verificaSiExiste(
         Cliente,
-        'id_cliente',
+        "id_cliente",
         prestamo.id_cliente
       );
       const sucursalV = await Verificador.verificaSiExiste(
         Sucursal,
-        'id_sucursal',
+        "id_sucursal",
         prestamo.id_sucursal_emisora
       );
 
       if (cuentaV == true && sucursalV == true) {
         await Prestamo.create(prestamo);
         this.cambioDeEstadoDeDeuda(prestamo.id_cliente);
-        mensaje = 'Prestamo ingresado correctamente';
+        mensaje = "Prestamo ingresado correctamente";
         console.log(mensaje);
         return mensaje;
       } else if (sucursalV === true) {
-        mensaje = 'Numero de cliente incorrecto';
+        mensaje = "Numero de cliente incorrecto";
         console.error(mensaje);
         return mensaje;
       } else if (cuentaV == true) {
-        mensaje = 'Numero de sucursal emisora incorrecta';
+        mensaje = "Numero de sucursal emisora incorrecta";
         console.error(mensaje);
         return mensaje;
       } else {
-        mensaje = 'Numero de cliente y sucursal incorrectos';
+        mensaje = "Numero de cliente y sucursal incorrectos";
         console.error(mensaje);
         return mensaje;
       }
     } catch (e) {
       console.error(e);
-      mensaje = 'ocurrió un error , verifique los datos ingresado';
+      mensaje = "ocurrió un error , verifique los datos ingresados";
       return mensaje;
     }
   }

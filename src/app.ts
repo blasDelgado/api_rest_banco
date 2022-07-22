@@ -1,12 +1,12 @@
-import express from 'express';
-import morgan from 'morgan';
-import rutaLlamadas from './routes/rutas-llamadas';
-import rutaEntradas from './routes/rutas-entradas';
+import express from "express";
+import morgan from "morgan";
+import rutaLlamadas from "./routes/rutas-llamadas";
+import rutaEntradas from "./routes/rutas-entradas";
 
 const app = express();
 
 //Middleweares
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 //Configuraciones
 app.use(express.json());
