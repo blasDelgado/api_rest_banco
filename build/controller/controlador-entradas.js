@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const agregar_cliente_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-cliente"));
-const agregar_operacion_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-operacion"));
-const agregar_prestamo_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-prestamo"));
-const agregar_sucursal_1 = __importDefault(require("../clases/para_controlador_entradas/agregar-sucursal"));
+const agregar_cliente_1 = __importDefault(require("../service/entradas/agregar-cliente"));
+const agregar_operacion_1 = __importDefault(require("../service/entradas/agregar-operacion"));
+const agregar_prestamo_1 = __importDefault(require("../service/entradas/agregar-prestamo"));
+const agregar_sucursal_1 = __importDefault(require("../service/entradas/agregar-sucursal"));
 class ControladorEntradas {
     nuevoCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +26,7 @@ class ControladorEntradas {
                 res.status(200).json({ mensaje: mensaje });
             }
             catch (e) {
-                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                res.status(500).json({ mensaje: "ocurrió un error en el servidor" });
                 console.error(e);
             }
         });
@@ -39,7 +39,7 @@ class ControladorEntradas {
                 res.status(200).json({ mensaje: mensaje });
             }
             catch (e) {
-                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                res.status(500).json({ mensaje: "ocurrió un error en el servidor" });
                 console.error(e);
             }
         });
@@ -52,7 +52,7 @@ class ControladorEntradas {
                 res.status(200).json({ mensaje: mensaje });
             }
             catch (e) {
-                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                res.status(500).json({ mensaje: "ocurrió un error en el servidor" });
                 console.error(e);
             }
         });
@@ -65,7 +65,7 @@ class ControladorEntradas {
                 res.status(200).json({ mensaje: mensaje });
             }
             catch (e) {
-                res.status(500).json({ mensaje: 'ocurrió un error en el servidor' });
+                res.status(500).json({ mensaje: "ocurrió un error en el servidor" });
                 console.error(e);
             }
         });

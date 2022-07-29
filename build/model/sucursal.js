@@ -27,5 +27,5 @@ Sucursal.init({
     },
 }, {
     sequelize: datebase_1.default,
-    tableName: 'sucursal',
+    tableName: "sucursal",
 });

@@ -1,5 +1,5 @@
-import { Model, DataTypes } from 'sequelize';
-import bd from '../datebase';
+import { Model, DataTypes } from "sequelize";
+import bd from "../datebase";
 
 export interface ISucursal {
   id_sucursal: number | null;
@@ -31,6 +31,6 @@ Sucursal.init(
   },
   {
     sequelize: bd,
-    tableName: 'sucursal',
+    tableName: "sucursal",
   }
 );
